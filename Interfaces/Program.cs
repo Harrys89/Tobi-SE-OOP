@@ -1,15 +1,31 @@
 ﻿/*
-..var orderService = new OrderService();
-orderService.ProcessOrder("123456");
+  var orderService = new OrderService();
+  orderService.ProcessOrder("123456");
 */
+
 using Interfaces;
 
-var ConsoeLogger = new ConsoleLogger();
-var orderService = new OrederService(ConsoeLogger);
+var consoleLogger = new ConsoleLogger();
+var orderService = new OrderService(consoleLogger);
 orderService.ProcessOrder("123456");
-orderService.ProcessOrder("127345");
+orderService.ProcessOrder("42069");
 
-var filelogger = new FileLogger();
-var orederServiseWithFileLogger = new OrederService(filelogger);
-orederServiseWithFileLogger.ProcessOrder("426340967237");
-orederServiseWithFileLogger.ProcessOrder("876342863487634");
+var fileLogger = new FileLogger("./logger.txt");
+var orderServiceWithFileLogging = new OrderService(fileLogger);
+orderServiceWithFileLogging.ProcessOrder("421024");
+orderServiceWithFileLogging.ProcessOrder("133769");
+
+
+
+
+
+
+
+
+
+
+
+/*
+  var myBaseLogger = new BaseLogger();
+  myBaseLogger.Log("buxtehude");
+*/
