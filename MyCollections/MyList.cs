@@ -81,7 +81,7 @@ public class MyList<T> :IEnumerable<T>
 
         while (current != null)
         {
-            if (index ==count)
+            if (index == count)
             {
                current.Value = value;
                return;
