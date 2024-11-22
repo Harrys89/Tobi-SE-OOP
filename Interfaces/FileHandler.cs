@@ -10,7 +10,7 @@
 
 namespace Interfaces;
 
-public interface FileHandler
+public interface IFileHandler
 {
   public string FilePath { get; set; }
 

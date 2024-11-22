@@ -1,41 +1,64 @@
-﻿namespace MyCollections;
+﻿using System.Collections;
 
-internal class Node
+namespace MyCollections;
+
+internal class Node<T> 
 {
-    public int Value;
-    public Node? Next;
-    public Node(int value)
+    public T Value;
+    public Node<T>? Next;
+    public Node(T value)
     {
         Value = value;
         Next = null;
     }
 }
 
-public class MyList
+public class MyList<T> :IEnumerable<T>
 {
-    private Node? head;
 
-    public void Add(int value)
+    public int Count {get; private set;}
+
+    public MyList()
+    {
+        Count = 0;
+    }
+    private Node<T>? head;
+    // array indexer property => myList[1]
+    public T this[int index]
+    {
+        get
+        {
+            return this.Get(index);
+        }
+        set
+        {
+            this.Set(index, value);
+        }
+    }
+
+    public void Add(T value)
     {
         if (head is null)
         {
-            head = new Node(value);
+            head = new Node<T>(value);
+            Count = 1;
         }
         else
         {
-            Node current = head;
+            Node<T> current = head;
             while (current.Next != null)
             {
                 current = current.Next;
             }
-            current.Next = new Node(value);
+            current.Next = new Node<T>(value);
+            Count++;
         }
     }
 
-    public int Get (int index)
+    public T Get (int index)
     {
         int count = 0;
-        Node current = head;
+        Node<T>? current = head;
 
         while (current != null)
         {
@@ -49,5 +72,41 @@ public class MyList
         }
 
         throw new IndexOutOfRangeException();
+    }
+
+    public void Set( int index, T value)
+    {
+        int count = 0;
+        Node<T>? current = head;
+
+        while (current != null)
+        {
+            if (index ==count)
+            {
+               current.Value = value;
+               return;
+            }
+
+            count++;
+            current = current.Next;
+        }
+
+        throw new IndexOutOfRangeException();
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        Node<T>? current = head;
+
+        while (current != null)
+        {
+            yield return current.Value;
+            current = current.Next;
+        }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }
